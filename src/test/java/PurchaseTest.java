@@ -31,7 +31,7 @@ public class PurchaseTest {
     void ShouldBuyPositive() {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:8080");
-        $$("[class='button button_view_extra button_size_m button_theme_alfa-on-white'] ").get(0).click();
+        $$("[class='button button_view_extra button_size_m button_theme_alfa-on-white']").get(0).click();
         $("[placeholder='0000 0000 0000 0000']").setValue("4444 4444 4444 4441");
         $("[class='input-group__input-case'] input").setValue("11");
         $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input").setValue("24");
