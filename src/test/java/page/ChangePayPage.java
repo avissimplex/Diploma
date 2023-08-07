@@ -10,7 +10,8 @@ public class ChangePayPage {
 
     public FormPage changePurchaseByCard() {
         buyButton.click();
-        return page(FormPage.class);
+        return new FormPage();
+//        return page(FormPage.class);
     }
 
     public FormPage changePurchaseInCredit() {
