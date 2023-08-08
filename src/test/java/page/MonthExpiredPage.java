@@ -9,7 +9,7 @@ public class MonthExpiredPage {
 
     private final SelenideElement monthExpiredNotification = $(byText("Неверно указан срок действия карты"));
 
-    public String getMonthExpiredNotificationAccept () {
+    public String getMonthExpiredNotificationAccept() {
         return monthExpiredNotification.getText();
     }
 }

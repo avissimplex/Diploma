@@ -35,8 +35,8 @@ public class FormPage {
         return new VerificationPage();
     }
 
-    public VerificationPage fillInvalidCardNumber() {
-        cardNumberField.setValue(DataGenerator.generateInvalidCardNumber());
+    public VerificationPage fillUnknownCardNumber() {
+        cardNumberField.setValue(DataGenerator.generateUnknownCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateValidYear());
         ownerField.setValue(DataGenerator.generateValidOwner());
