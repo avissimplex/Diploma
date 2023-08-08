@@ -34,16 +34,16 @@ public class DataGenerator {
         return "99";
     }
     public static String generateValidYear() {
-        return LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("uu"));
+        return LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("uu"));
     }
-    public static String generateInvalidYear() {
+    public static String generateExpiredYear() {
         return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("u"));
     }
     public static String generateValidMonth() {
         return LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    public static String generateInvalidMonth() {
-        return LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("M"));
+    public static String generateExpiredMonth() {
+        return LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
     }
 }

@@ -1,10 +1,7 @@
 package page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import data.DataGenerator;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -51,6 +48,26 @@ public class FormPage {
     public ErrorUnfilledFormPage unfillForm() {
         continueButton.click();
         return new ErrorUnfilledFormPage();
+    }
+
+    public CardExpiredPage fillExpiredYear() {
+        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
+        monthField.setValue(DataGenerator.generateValidMonth());
+        yearField.setValue(DataGenerator.generateExpiredYear());
+        ownerField.setValue(DataGenerator.generateValidOwner());
+        cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+        continueButton.click();
+        return new CardExpiredPage();
+    }
+
+    public CardExpiredPage fillExpiredMonth() {
+        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
+        monthField.setValue(DataGenerator.generateExpiredMonth());
+        yearField.setValue(DataGenerator.generateValidYear());
+        ownerField.setValue(DataGenerator.generateValidOwner());
+        cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+        continueButton.click();
+        return new CardExpiredPage();
     }
     public String getFormTitle () {
        return title.getText();
