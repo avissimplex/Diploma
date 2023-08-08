@@ -17,9 +17,7 @@ public class TransferTest {
     @BeforeEach
     void setup() {
         var changePayPage = open("http://localhost:8080/", ChangePayPage.class);
-        SQLHelper.CleanDatabase();
-
-    }
+          }
 
     //Позитивные тесты
 
