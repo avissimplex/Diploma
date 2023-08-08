@@ -14,7 +14,7 @@ public class ChangePayPage {
 //        return page(FormPage.class);
     }
 
-    public FormPage changePurchaseInCredit() {
+    public FormPage changePurchaseByCredit() {
        creditButton.click();
         return page(FormPage.class);
     }

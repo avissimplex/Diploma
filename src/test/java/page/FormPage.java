@@ -27,6 +27,31 @@ public class FormPage {
        continueButton.click();
        return new VerificationPage();
            }
+
+    public VerificationPage fillDeclinedCard () {
+        cardNumberField.setValue(DataGenerator.generateDeclinedCardNumber());
+        monthField.setValue(DataGenerator.generateValidMonth());
+        yearField.setValue(DataGenerator.generateValidYear());
+        ownerField.setValue(DataGenerator.generateValidOwner());
+        cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+        continueButton.click();
+        return new VerificationPage();
+    }
+
+    public VerificationPage fillInvalidCardNumber() {
+        cardNumberField.setValue(DataGenerator.generateInvalidCardNumber());
+        monthField.setValue(DataGenerator.generateValidMonth());
+        yearField.setValue(DataGenerator.generateValidYear());
+        ownerField.setValue(DataGenerator.generateValidOwner());
+        cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+        continueButton.click();
+        return new VerificationPage();
+    }
+
+    public ErrorUnfilledFormPage unfillForm() {
+        continueButton.click();
+        return new ErrorUnfilledFormPage();
+    }
     public String getFormTitle () {
        return title.getText();
     }
