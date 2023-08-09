@@ -79,12 +79,13 @@ public class TransferTest {
     void shouldRejectPaymentByDeclinedCard() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillDeclinedCard();
-        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
-        int amount = 4500000;
-        assertEquals(amount, SQLHelper.getPaymentAmount());
         String notification = (new FormPage()).getNotificationError();
         assertEquals("Ошибка! Банк отказал в проведении операции.",
                 notification);
+        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getPaymentAmount());
+
     }
 
     @Test
