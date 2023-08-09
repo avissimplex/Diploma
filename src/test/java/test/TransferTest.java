@@ -166,6 +166,14 @@ public class TransferTest {
         assertEquals("Неверно указан срок действия карты",
                 notification);
     }
-
+    @Test
+    @DisplayName("Should Decline Payment from Invalid Owner")
+    void ShouldDeclinePaymentInvalidOwner() {
+        (new ChangePayPage()).changePaymentByCard();
+        (new FormPage()).fillInvalidOwner();
+        String notification = (new FormPage()).getNotificationOwnerInvalid();
+        assertEquals("Неверный формат",
+                notification);
+    }
 
 }
