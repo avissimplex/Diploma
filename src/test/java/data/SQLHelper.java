@@ -20,6 +20,7 @@ public class SQLHelper {
     public static String getPaymentStatus() {
         var sql = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
         try (var conn = getConn()) {
+            var runner = new QueryRunner();
             var status = runner.query(conn, sql, new ScalarHandler<String>());
             return status;
         } catch (SQLException exception) {
@@ -29,8 +30,9 @@ public class SQLHelper {
 
     public static void CleanDatabase() throws SQLException {
         var connection = getConn();
-        runner.execute(connection, "DELETE FROM credit_request_enity");
-        runner.execute(connection, "DELETE FROM order_enity");
-        runner.execute(connection, "DELETE FROM payment_enity");
+        var runner = new QueryRunner();
+        runner.execute(connection, "DELETE FROM credit_request_entity");
+        runner.execute(connection, "DELETE FROM order_entity");
+        runner.execute(connection, "DELETE FROM payment_entity");
     }
 }

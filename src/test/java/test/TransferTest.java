@@ -15,9 +15,10 @@ public class TransferTest {
 
 
     @BeforeEach
-    void setup() {
+    void setup() throws SQLException {
         var changePayPage = open("http://localhost:8080/", ChangePayPage.class);
-          }
+        SQLHelper.CleanDatabase();
+    }
 
     //Позитивные тесты
 
