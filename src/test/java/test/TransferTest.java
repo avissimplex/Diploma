@@ -45,7 +45,7 @@ public class TransferTest {
     void shouldPaymentSuccessfully() throws SQLException {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillValidCard();
-        String notification = (new VerificationPage()).getNotificationAccept();
+        String notification = (new FormPage()).getNotificationAccept();
         assertEquals("Успешно\n" +
                         "Операция одобрена Банком.",
                 notification);
@@ -174,6 +174,6 @@ public class TransferTest {
         String notification = (new FormPage()).getNotificationOwnerInvalid();
         assertEquals("Неверный формат",
                 notification);
-    }
+            }
 
 }

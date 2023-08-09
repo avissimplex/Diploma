@@ -1,7 +1,10 @@
 package page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import data.DataGenerator;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -15,7 +18,8 @@ public class FormPage {
     private final SelenideElement cvcCvvField = $("[placeholder='999']");
     private final SelenideElement continueButton = $$("[class='button button_view_extra button_size_m button_theme_alfa-on-white'] ").get(1);
     private final SelenideElement notificationOwnerInvalid = $(byText("Неверный формат"));
-
+    private final SelenideElement notificationAccept = $("[class='notification notification_visible notification_status_ok notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']")
+            .shouldBe(Condition.visible, Duration.ofSeconds(10));
 
    public VerificationPage fillValidCard () {
       cardNumberField.setValue(DataGenerator.generateValidCardNumber());
@@ -84,6 +88,11 @@ public class FormPage {
     public String getFormTitle () {
        return title.getText();
     }
+
+    public String getNotificationAccept () {
+        return notificationAccept.getText();
+    }
+
     public String getNotificationOwnerInvalid  () {
         return notificationOwnerInvalid.getText();
     }
