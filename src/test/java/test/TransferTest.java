@@ -157,7 +157,7 @@ public class TransferTest {
     void ShouldNotificateExpiredYearPayment() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillExpiredYear();
-        String notification = (new FormPage()).getDateExpiredNotificationAccept();
+        String notification = (new FormPage()).getDateExpiredNotification();
         assertEquals("Истёк срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getPaymentStatus());
@@ -169,7 +169,7 @@ public class TransferTest {
     void ShouldNotificateExpiredYearCredit() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillExpiredYear();
-        String notification = (new FormPage()).getDateExpiredNotificationAccept();
+        String notification = (new FormPage()).getDateExpiredNotification();
         assertEquals("Истёк срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
@@ -182,7 +182,7 @@ public class TransferTest {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillExpiredMonth();
         String notification = (new FormPage()).getMonthExpiredNotificationAccept();
-        assertEquals("Неверно указан срок действия карты",
+        assertEquals("Истёк срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getPaymentStatus());
         assertEquals(null, SQLHelper.getPaymentAmount());
@@ -194,7 +194,7 @@ public class TransferTest {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillExpiredMonth();
         String notification = (new FormPage()).getMonthExpiredNotificationAccept();
-        assertEquals("Неверно указан срок действия карты",
+        assertEquals("Истёк срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
         assertEquals(null, SQLHelper.getCreditAmount());
@@ -223,4 +223,60 @@ public class TransferTest {
                 notification);
 
     }
+
+    @Test
+    @DisplayName("Should Notificate Invalid Month Payment")
+    void ShouldNotificateInvalidMonthPayment() {
+        (new ChangePayPage()).changePaymentByCard();
+        (new FormPage()).fillInvalidMonth();
+        String notification = (new FormPage()).getDateInvalidNotification();
+        assertEquals("Неверно указан срок действия карты",
+                notification);
+        assertEquals(null, SQLHelper.getPaymentStatus());
+        assertEquals(null, SQLHelper.getPaymentAmount());
+    }
+
+    @Test
+    @DisplayName("Should Notificate Invalid Month Credit")
+    void ShouldNotificateInvalidMonthCredit() {
+        (new ChangePayPage()).changeCredit();
+        (new FormPage()).fillInvalidMonth();
+        String notification = (new FormPage()).getDateInvalidNotification();
+        assertEquals("Неверно указан срок действия карты",
+                notification);
+        assertEquals(null, SQLHelper.getCreditStatus());
+        assertEquals(null, SQLHelper.getCreditAmount());
+    }
+
+    @Test
+    @DisplayName("Should Notificate Invalid Year Payment")
+    void ShouldNotificateInvalidYearPayment() {
+        (new ChangePayPage()).changePaymentByCard();
+        (new FormPage()).fillInvalidYear();
+        String notification = (new FormPage()).getDateInvalidNotification();
+        assertEquals("Неверно указан срок действия карты",
+                notification);
+        assertEquals(null, SQLHelper.getPaymentStatus());
+        assertEquals(null, SQLHelper.getPaymentAmount());
+    }
+
+    @Test
+    @DisplayName("Should Notificate Invalid Year Credit")
+    void ShouldNotificateInvalidYearCredit() {
+        (new ChangePayPage()).changeCredit();
+        (new FormPage()).fillInvalidYear();
+        String notification = (new FormPage()).getDateInvalidNotification();
+        assertEquals("Неверно указан срок действия карты",
+                notification);
+        assertEquals(null, SQLHelper.getCreditStatus());
+        assertEquals(null, SQLHelper.getCreditAmount());
+    }
+
+//    @Test
+//    @DisplayName("Should Show Owner Grey Notification")
+//    void ShouldShowOwnerGreyNotification() {
+//        (new ChangePayPage()).changeCredit();
+//        // поставить курсор в поле
+//        // проверить, что выдается подсказка Ivan Ivanov
+//    }
 }

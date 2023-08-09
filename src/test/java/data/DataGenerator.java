@@ -40,7 +40,7 @@ public class DataGenerator {
     }
 
     public static String generateExpiredYear() {
-        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("u"));
+        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("uu"));
     }
 
     public static String generateValidMonth() {
@@ -49,6 +49,13 @@ public class DataGenerator {
 
     public static String generateExpiredMonth() {
         return LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
+    }
+
+    public static String generateInvalidMonth() {
+        return "13";
+    }
+    public static String generateInvalidYear() {
+        return LocalDate.now().plusYears(10).format(DateTimeFormatter.ofPattern("uu"));
     }
 
 

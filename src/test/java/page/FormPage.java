@@ -16,17 +16,32 @@ public class FormPage {
     private final SelenideElement yearField = $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input");
     private final SelenideElement ownerField = $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input");
     private final SelenideElement cvcCvvField = $("[placeholder='999']");
+    // private final SelenideElement ownerGreyNotification = $("[class='input__control'] [placeholder='Ivanov Ivan'] input"); // аналогичный селектор не работает
     private final SelenideElement continueButton = $(byText("Продолжить"));
     private final SelenideElement notificationOwnerInvalid = $(byText("Неверный формат"));
     private final SelenideElement notificationAccept = $("[class='notification notification_visible notification_status_ok notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']");
     private final SelenideElement notificationError = $("[class='notification notification_visible notification_status_error notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']");
     private final SelenideElement dateExpiredNotification = $(byText("Истёк срок действия карты"));
-    private final SelenideElement monthExpiredNotification = $(byText("Неверно указан срок действия карты"));
+    private final SelenideElement dateInvalidNotification = $(byText("Неверно указан срок действия карты"));
     private final SelenideElement redNotification = $(byText("Неверный формат"));
 
     public String getMonthExpiredNotificationAccept() {
-        return monthExpiredNotification.getText();
-    }public FormPage fillValidCard () {
+        return dateExpiredNotification.getText();
+    }
+
+//    public String getOwnerGreyNotification() {
+//        return getOwnerGreyNotification().getText();
+//    }
+
+//    public FormPage OwnerGreyNotification () {
+//        ownerField.  // просто поставить курсор
+//        return new FormPage();
+//    }
+
+    public String getDateInvalidNotification() {
+        return dateInvalidNotification.getText();
+    }
+    public FormPage fillValidCard () {
       cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateValidYear());
@@ -87,6 +102,28 @@ public class FormPage {
         return new FormPage();
     }
 
+    public FormPage fillInvalidMonth() {
+        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
+        monthField.setValue(DataGenerator.generateInvalidMonth());
+        yearField.setValue(DataGenerator.generateValidYear());
+        ownerField.setValue(DataGenerator.generateValidOwner());
+        cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+        continueButton.click();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
+    }
+
+    public FormPage fillInvalidYear() {
+        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
+        monthField.setValue(DataGenerator.generateValidMonth());
+        yearField.setValue(DataGenerator.generateInvalidYear());
+        ownerField.setValue(DataGenerator.generateValidOwner());
+        cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+        continueButton.click();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
+    }
+
     public FormPage fillInvalidOwner() {
         cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
@@ -113,7 +150,7 @@ public class FormPage {
         notificationError.shouldBe(Condition.visible, Duration.ofSeconds(15));
         return notificationError.getText();
     }
-    public String getDateExpiredNotificationAccept () {
+    public String getDateExpiredNotification() {
         return dateExpiredNotification.getText();
     }
 
