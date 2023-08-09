@@ -1,5 +1,6 @@
 package test;
 
+import com.codeborne.selenide.Configuration;
 import data.SQLHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,7 @@ public class TransferTest {
     @BeforeEach
     void setup() throws SQLException {
         var changePayPage = open("http://localhost:8080/", ChangePayPage.class);
+        Configuration.holdBrowserOpen = true;
         SQLHelper.CleanDatabase();
     }
 
@@ -42,7 +44,7 @@ public class TransferTest {
 
     @Test
     @DisplayName("Should payment successfully by approved card")
-    void shouldPaymentSuccessfully() throws SQLException {
+    void shouldPaymentSuccessfully() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillValidCard();
         String notification = (new FormPage()).getNotificationAccept();
@@ -50,18 +52,24 @@ public class TransferTest {
                         "Операция одобрена Банком.",
                 notification);
         assertEquals("APPROVED", SQLHelper.getPaymentStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getPaymentAmount());
+
     }
 
     @Test
-    @DisplayName("Should purchase successfully by credit")
-    void shouldPurchaseSuccessfullyByCredit() {
+    @DisplayName("Should credit successfully by approved card")
+    void shouldCreditSuccessfully() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillValidCard();
-        String notification = (new VerificationPage()).getNotificationAccept();
+        String notification = (new FormPage()).getNotificationAccept();
+
+        assertEquals("APPROVED", SQLHelper.getCreditStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getCreditAmount());
         assertEquals("Успешно\n" +
                         "Операция одобрена Банком.",
-                notification);
-    }
+                notification);}
 
     //Негативные тесты
     @Test
@@ -69,7 +77,10 @@ public class TransferTest {
     void shouldRejectPaymentByDeclinedCard() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillDeclinedCard();
-        String notification = (new DeniedPage()).getNotificationError();
+        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getPaymentAmount());
+        String notification = (new FormPage()).getNotificationError();
         assertEquals("Ошибка! Банк отказал в проведении операции.",
                 notification);
     }
@@ -79,7 +90,10 @@ public class TransferTest {
     void shouldRejectCreditByDeclinedCard() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillDeclinedCard();
-        String notification = (new DeniedPage()).getNotificationError();
+        assertEquals("DECLINED", SQLHelper.getCreditStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getCreditAmount());
+        String notification = (new FormPage()).getNotificationError();
         assertEquals("Ошибка! Банк отказал в проведении операции.",
                 notification);
     }
@@ -90,7 +104,10 @@ public class TransferTest {
     void shouldRejectPaymentByUnknownCardNumber() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillUnknownCardNumber();
-        String notification = (new DeniedPage()).getNotificationError();
+        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getPaymentAmount());
+        String notification = (new FormPage()).getNotificationError();
         assertEquals("Ошибка\n" +
                         "Ошибка! Банк отказал в проведении операции.",
                 notification);
@@ -101,10 +118,14 @@ public class TransferTest {
     void shouldRejectCreditByUnknownCardNumber() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillUnknownCardNumber();
-        String notification = (new DeniedPage()).getNotificationError();
+        String notification = (new FormPage()).getNotificationError();
         assertEquals("Ошибка\n" +
                         "Ошибка! Банк отказал в проведении операции.",
                 notification);
+        assertEquals("DECLINED", SQLHelper.getCreditStatus());
+        int amount = 4500000;
+        assertEquals(amount, SQLHelper.getCreditAmount());
+
     }
 
     @Test
@@ -112,9 +133,11 @@ public class TransferTest {
     void ShouldNotificateUnfilledPaymentForm() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).unfillForm();
-        String notification = (new ErrorUnfilledFormPage()).getRedNotificationAccept();
+        String notification = (new FormPage()).getRedNotificationAccept();
         assertEquals("Неверный формат",
                 notification);
+        assertEquals(null, SQLHelper.getPaymentStatus());
+        assertEquals(null, SQLHelper.getPaymentAmount());
     }
 
     @Test
@@ -122,9 +145,11 @@ public class TransferTest {
     void ShouldNotificateUnfilledFormCredit() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).unfillForm();
-        String notification = (new ErrorUnfilledFormPage()).getRedNotificationAccept();
+        String notification = (new FormPage()).getRedNotificationAccept();
         assertEquals("Неверный формат",
                 notification);
+        assertEquals(null, SQLHelper.getCreditStatus());
+        assertEquals(null, SQLHelper.getCreditAmount());
     }
 
     @Test
@@ -132,9 +157,11 @@ public class TransferTest {
     void ShouldNotificateExpiredYearPayment() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillExpiredYear();
-        String notification = (new CardExpiredPage()).getDateExpiredNotificationAccept();
+        String notification = (new FormPage()).getDateExpiredNotificationAccept();
         assertEquals("Истёк срок действия карты",
                 notification);
+        assertEquals(null, SQLHelper.getPaymentStatus());
+        assertEquals(null, SQLHelper.getPaymentAmount());
     }
 
     @Test
@@ -142,9 +169,11 @@ public class TransferTest {
     void ShouldNotificateExpiredYearCredit() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillExpiredYear();
-        String notification = (new CardExpiredPage()).getDateExpiredNotificationAccept();
+        String notification = (new FormPage()).getDateExpiredNotificationAccept();
         assertEquals("Истёк срок действия карты",
                 notification);
+        assertEquals(null, SQLHelper.getCreditStatus());
+        assertEquals(null, SQLHelper.getCreditAmount());
     }
 
     @Test
@@ -152,9 +181,11 @@ public class TransferTest {
     void ShouldNotificateExpiredMonthPayment() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillExpiredMonth();
-        String notification = (new MonthExpiredPage()).getMonthExpiredNotificationAccept();
+        String notification = (new FormPage()).getMonthExpiredNotificationAccept();
         assertEquals("Неверно указан срок действия карты",
                 notification);
+        assertEquals(null, SQLHelper.getPaymentStatus());
+        assertEquals(null, SQLHelper.getPaymentAmount());
     }
 
     @Test
@@ -162,18 +193,34 @@ public class TransferTest {
     void ShouldNotificateExpiredMonthCredit() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).fillExpiredMonth();
-        String notification = (new MonthExpiredPage()).getMonthExpiredNotificationAccept();
+        String notification = (new FormPage()).getMonthExpiredNotificationAccept();
         assertEquals("Неверно указан срок действия карты",
                 notification);
+        assertEquals(null, SQLHelper.getCreditStatus());
+        assertEquals(null, SQLHelper.getCreditAmount());
     }
     @Test
     @DisplayName("Should Decline Payment from Invalid Owner")
     void ShouldDeclinePaymentInvalidOwner() {
         (new ChangePayPage()).changePaymentByCard();
         (new FormPage()).fillInvalidOwner();
+        assertEquals(null, SQLHelper.getPaymentStatus());
+        assertEquals(null, SQLHelper.getPaymentAmount());
+        String notification = (new FormPage()).getNotificationOwnerInvalid();
+                assertEquals("Неверный формат",
+                notification);
+
+            }
+    @Test
+    @DisplayName("Should Decline Credit from Invalid Owner")
+    void ShouldDeclineCreditInvalidOwner() {
+        (new ChangePayPage()).changeCredit();
+        (new FormPage()).fillInvalidOwner();
+        assertEquals(null, SQLHelper.getCreditStatus());
+        assertEquals(null, SQLHelper.getCreditAmount());
         String notification = (new FormPage()).getNotificationOwnerInvalid();
         assertEquals("Неверный формат",
                 notification);
-            }
 
+    }
 }

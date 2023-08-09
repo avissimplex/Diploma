@@ -16,85 +16,110 @@ public class FormPage {
     private final SelenideElement yearField = $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input");
     private final SelenideElement ownerField = $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input");
     private final SelenideElement cvcCvvField = $("[placeholder='999']");
-    private final SelenideElement continueButton = $$("[class='button button_view_extra button_size_m button_theme_alfa-on-white'] ").get(1);
+    private final SelenideElement continueButton = $(byText("Продолжить"));
     private final SelenideElement notificationOwnerInvalid = $(byText("Неверный формат"));
-    private final SelenideElement notificationAccept = $("[class='notification notification_visible notification_status_ok notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']")
-            .shouldBe(Condition.visible, Duration.ofSeconds(10));
+    private final SelenideElement notificationAccept = $("[class='notification notification_visible notification_status_ok notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']");
+    private final SelenideElement notificationError = $("[class='notification notification_visible notification_status_error notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']");
+    private final SelenideElement dateExpiredNotification = $(byText("Истёк срок действия карты"));
+    private final SelenideElement monthExpiredNotification = $(byText("Неверно указан срок действия карты"));
+    private final SelenideElement redNotification = $(byText("Неверный формат"));
 
-   public VerificationPage fillValidCard () {
+    public String getMonthExpiredNotificationAccept() {
+        return monthExpiredNotification.getText();
+    }public FormPage fillValidCard () {
       cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateValidYear());
         ownerField.setValue(DataGenerator.generateValidOwner());
         cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
        continueButton.click();
-       return new VerificationPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+       return new FormPage();
            }
 
-    public VerificationPage fillDeclinedCard () {
+    public FormPage fillDeclinedCard () {
         cardNumberField.setValue(DataGenerator.generateDeclinedCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateValidYear());
         ownerField.setValue(DataGenerator.generateValidOwner());
         cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
         continueButton.click();
-        return new VerificationPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
     }
 
-    public VerificationPage fillUnknownCardNumber() {
+    public FormPage fillUnknownCardNumber() {
         cardNumberField.setValue(DataGenerator.generateUnknownCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateValidYear());
         ownerField.setValue(DataGenerator.generateValidOwner());
         cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
         continueButton.click();
-        return new VerificationPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
     }
 
-    public ErrorUnfilledFormPage unfillForm() {
+    public FormPage unfillForm() {
         continueButton.click();
-        return new ErrorUnfilledFormPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
     }
 
-    public CardExpiredPage fillExpiredYear() {
+    public FormPage fillExpiredYear() {
         cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateExpiredYear());
         ownerField.setValue(DataGenerator.generateValidOwner());
         cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
         continueButton.click();
-        return new CardExpiredPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
     }
 
-    public CardExpiredPage fillExpiredMonth() {
+    public FormPage fillExpiredMonth() {
         cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateExpiredMonth());
         yearField.setValue(DataGenerator.generateValidYear());
         ownerField.setValue(DataGenerator.generateValidOwner());
         cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
         continueButton.click();
-        return new CardExpiredPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
     }
 
-    public CardExpiredPage fillInvalidOwner() {
+    public FormPage fillInvalidOwner() {
         cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
         yearField.setValue(DataGenerator.generateValidYear());
         ownerField.setValue(DataGenerator.generateInvalidOwner());
         cvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
         continueButton.click();
-        return new CardExpiredPage();
+        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return new FormPage();
     }
     public String getFormTitle () {
        return title.getText();
     }
 
     public String getNotificationAccept () {
-        return notificationAccept.getText();
+       notificationAccept.shouldBe(Condition.visible, Duration.ofSeconds(10));
+       return notificationAccept.getText();
     }
 
     public String getNotificationOwnerInvalid  () {
         return notificationOwnerInvalid.getText();
+    }
+    public String getNotificationError () {
+        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        return notificationError.getText();
+    }
+    public String getDateExpiredNotificationAccept () {
+        return dateExpiredNotification.getText();
+    }
+
+
+    public String getRedNotificationAccept () {
+        return redNotification.getText();
     }
 }
 

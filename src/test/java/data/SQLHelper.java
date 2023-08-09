@@ -27,7 +27,37 @@ public class SQLHelper {
             return null;
         }
     }
+    public static Object getPaymentAmount() {
+        var sql = "SELECT amount FROM payment_entity ORDER BY created DESC LIMIT 1";
+        try (var conn = getConn()) {
+            var runner = new QueryRunner();
+            var status = runner.query(conn, sql, new ScalarHandler<Integer>());
+            return status;
+        } catch (SQLException exception) {
+            return null;
+        }
+    }
 
+    public static String getCreditStatus() {
+        var sql = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
+        try (var conn = getConn()) {
+            var runner = new QueryRunner();
+            var status = runner.query(conn, sql, new ScalarHandler<String>());
+            return status;
+        } catch (SQLException exception) {
+            return null;
+        }
+    }
+    public static Object getCreditAmount() {
+        var sql = "SELECT amount FROM credit_request_entity ORDER BY created DESC LIMIT 1";
+        try (var conn = getConn()) {
+            var runner = new QueryRunner();
+            var status = runner.query(conn, sql, new ScalarHandler<Integer>());
+            return status;
+        } catch (SQLException exception) {
+            return null;
+        }
+    }
     public static void CleanDatabase() throws SQLException {
         var connection = getConn();
         var runner = new QueryRunner();
