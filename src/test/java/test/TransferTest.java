@@ -1,5 +1,6 @@
 package test;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import data.SQLHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import page.*;
 
 import java.sql.SQLException;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -272,11 +274,21 @@ public class TransferTest {
         assertEquals(null, SQLHelper.getCreditAmount());
     }
 
+    @Test
+    @DisplayName("Should Show Owner Grey Notification")
+    void ShouldShowOwnerGreyNotification() {
+        (new ChangePayPage()).changeCredit();
+        (new FormPage()).getOwnerInputField();
+        $("[placeholder='Ivanov Ivan']").shouldBe(Condition.visible);
+    }
+
+
 //    @Test
-//    @DisplayName("Should Show Owner Grey Notification")
-//    void ShouldShowOwnerGreyNotification() {
+//    @DisplayName("Should Show Test Owner Grey Notification")
+//    void ShouldShowTestOwnerGreyNotification() {
 //        (new ChangePayPage()).changeCredit();
-//        // поставить курсор в поле
-//        // проверить, что выдается подсказка Ivan Ivanov
+//        (new FormPage()).TestOwnerGreyNotification();
+//        $("[placeholder='999']").shouldBe(Condition.visible);
+//
 //    }
 }

@@ -16,7 +16,8 @@ public class FormPage {
     private final SelenideElement yearField = $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input");
     private final SelenideElement ownerField = $("[class='input-group__input-case'] [class='input input_type_text input_view_default input_size_m input_width_available input_has-label input_theme_alfa-on-white'] input");
     private final SelenideElement cvcCvvField = $("[placeholder='999']");
-    // private final SelenideElement ownerGreyNotification = $("[class='input__control'] [placeholder='Ivanov Ivan'] input"); // аналогичный селектор не работает
+   private final SelenideElement ownerInputField = $$("[class=input__control]").get(3);
+//    private final SelenideElement testOwnerGreyNotification = $$("[class=input__control]").get(4);
     private final SelenideElement continueButton = $(byText("Продолжить"));
     private final SelenideElement notificationOwnerInvalid = $(byText("Неверный формат"));
     private final SelenideElement notificationAccept = $("[class='notification notification_visible notification_status_ok notification_has-closer notification_stick-to_right notification_theme_alfa-on-white']");
@@ -29,14 +30,17 @@ public class FormPage {
         return dateExpiredNotification.getText();
     }
 
-//    public String getOwnerGreyNotification() {
-//        return getOwnerGreyNotification().getText();
-//    }
+    public FormPage getOwnerInputField() {
+       ownerInputField.click();
+        return new FormPage();
+    }
 
-//    public FormPage OwnerGreyNotification () {
-//        ownerField.  // просто поставить курсор
+
+//    public FormPage TestOwnerGreyNotification() {
+//        testOwnerGreyNotification.click();
 //        return new FormPage();
 //    }
+
 
     public String getDateInvalidNotification() {
         return dateInvalidNotification.getText();
