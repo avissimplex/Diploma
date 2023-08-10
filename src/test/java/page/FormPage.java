@@ -28,27 +28,6 @@ public class FormPage {
     private final SelenideElement placeholdercvcCvvField = $("[placeholder='999']");
 
 
-    public void getOwnerInputField() {
-        ownerInputField.click();
-        placeholderOwner.shouldBe(Condition.visible);
-    }
-
-    public String getMonthExpiredNotificationAccept() {
-        return dateExpiredNotification.getText();
-    }
-
-
-    public void getCvcInputField() {
-        CvcInputField.click();
-        placeholdercvcCvvField.shouldBe(Condition.visible);
-
-    }
-
-
-    public String getDateInvalidNotification() {
-        return dateInvalidNotification.getText();
-    }
-
     public FormPage fillValidCard() {
         cardNumberField.setValue(DataGenerator.generateValidCardNumber());
         monthField.setValue(DataGenerator.generateValidMonth());
@@ -165,10 +144,29 @@ public class FormPage {
         return dateExpiredNotification.getText();
     }
 
-
     public String getRedNotificationAccept() {
         return redNotification.getText();
     }
+
+    public void getOwnerInputField() {
+        ownerInputField.click();
+        placeholderOwner.shouldBe(Condition.visible);
+    }
+
+    public String getMonthExpiredNotificationAccept() {
+        return dateExpiredNotification.getText();
+    }
+
+    public void getCvcInputField() {
+        CvcInputField.click();
+        placeholdercvcCvvField.shouldBe(Condition.visible);
+
+    }
+
+    public String getDateInvalidNotification() {
+        return dateInvalidNotification.getText();
+    }
+
 }
 
 
