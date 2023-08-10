@@ -6,7 +6,8 @@ import data.SQLHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import page.*;
+import page.ChangePayPage;
+import page.FormPage;
 
 import java.sql.SQLException;
 
@@ -71,7 +72,8 @@ public class TransferTest {
         assertEquals(amount, SQLHelper.getCreditAmount());
         assertEquals("Успешно\n" +
                         "Операция одобрена Банком.",
-                notification);}
+                notification);
+    }
 
     //Негативные тесты
     @Test
@@ -202,6 +204,7 @@ public class TransferTest {
         assertEquals(null, SQLHelper.getCreditStatus());
         assertEquals(null, SQLHelper.getCreditAmount());
     }
+
     @Test
     @DisplayName("Should Decline Payment from Invalid Owner")
     void ShouldDeclinePaymentInvalidOwner() {
@@ -210,10 +213,11 @@ public class TransferTest {
         assertEquals(null, SQLHelper.getPaymentStatus());
         assertEquals(null, SQLHelper.getPaymentAmount());
         String notification = (new FormPage()).getNotificationOwnerInvalid();
-                assertEquals("Неверный формат",
+        assertEquals("Неверный формат",
                 notification);
 
-            }
+    }
+
     @Test
     @DisplayName("Should Decline Credit from Invalid Owner")
     void ShouldDeclineCreditInvalidOwner() {
@@ -284,12 +288,12 @@ public class TransferTest {
     }
 
 
-//    @Test
-//    @DisplayName("Should Show Test Owner Grey Notification")
-//    void ShouldShowTestOwnerGreyNotification() {
-//        (new ChangePayPage()).changeCredit();
-//        (new FormPage()).TestOwnerGreyNotification();
-//        $("[placeholder='999']").shouldBe(Condition.visible);
-//
-//    }
+    @Test
+    @DisplayName("Should Show CVC Grey Notification")
+    void ShouldShowCvcGreyNotification() {
+        (new ChangePayPage()).changeCredit();
+        (new FormPage()).getCvcInputField();
+        $("[placeholder='999']").shouldBe(Condition.visible);
+
+    }
 }

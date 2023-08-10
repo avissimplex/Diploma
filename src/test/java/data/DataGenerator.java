@@ -54,6 +54,7 @@ public class DataGenerator {
     public static String generateInvalidMonth() {
         return "13";
     }
+
     public static String generateInvalidYear() {
         return LocalDate.now().plusYears(10).format(DateTimeFormatter.ofPattern("uu"));
     }
