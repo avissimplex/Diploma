@@ -280,8 +280,8 @@ public class TransferTest {
     }
 
     @Test
-    @DisplayName("Should Show Owner Grey Notification")
-    void ShouldShowOwnerGreyNotification() {
+    @DisplayName("Should Show Owner Grey Suggest")
+    void ShouldShowOwnerGreySuggest() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).getOwnerInputField();
         $("[placeholder='Ivanov Ivan']").shouldBe(Condition.visible);
@@ -289,8 +289,8 @@ public class TransferTest {
 
 
     @Test
-    @DisplayName("Should Show CVC Grey Notification")
-    void ShouldShowCvcGreyNotification() {
+    @DisplayName("Should Show CVC Grey Suggest")
+    void ShouldShowCvcGreySuggest() {
         (new ChangePayPage()).changeCredit();
         (new FormPage()).getCvcInputField();
         $("[placeholder='999']").shouldBe(Condition.visible);
