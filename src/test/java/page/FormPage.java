@@ -26,20 +26,24 @@ public class FormPage {
     private final SelenideElement dateExpiredNotification = $(byText("Истёк срок действия карты"));
     private final SelenideElement dateInvalidNotification = $(byText("Неверно указан срок действия карты"));
     private final SelenideElement redNotification = $(byText("Неверный формат"));
+    private final SelenideElement placeholderOwner = $("[placeholder='Ivanov Ivan']");
+    private final SelenideElement placeholderCvc = $("[placeholder='999']");
+
+
+    public void getOwnerInputField() {
+        ownerInputField.click();
+        placeholderOwner.shouldBe(Condition.visible);
+    }
 
     public String getMonthExpiredNotificationAccept() {
         return dateExpiredNotification.getText();
     }
 
-    public FormPage getOwnerInputField() {
-        ownerInputField.click();
-        return new FormPage();
-    }
 
-
-    public FormPage getCvcInputField() {
+    public void getCvcInputField() {
         CvcInputField.click();
-        return new FormPage();
+        placeholderCvc.shouldBe(Condition.visible);
+
     }
 
 
