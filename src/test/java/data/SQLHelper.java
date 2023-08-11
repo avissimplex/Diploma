@@ -14,7 +14,8 @@ public class SQLHelper {
     private static QueryRunner runner;
 
     private static Connection getConn() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
+        String dsn = System.getProperty("db.dsn");
+        return DriverManager.getConnection(dsn, "app", "pass");
     }
 
     public static String getPaymentStatus() {
