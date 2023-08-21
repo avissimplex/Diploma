@@ -1,5 +1,6 @@
 package data;
 
+import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -13,53 +14,48 @@ public class SQLHelper {
 
     private static QueryRunner runner;
 
-    private static Connection getConn() throws SQLException {
+    @SneakyThrows
+    private static Connection getConn()  {
         String dsn = System.getProperty("db.dsn");
-        return DriverManager.getConnection(dsn, "app", "pass");
+        String user = System.getProperty("db.user");
+        String pass = System.getProperty("db.pass");
+        return DriverManager.getConnection(dsn, user, pass);
     }
-
+    @SneakyThrows
     public static String getPaymentStatus() {
         var sql = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var runner = new QueryRunner();
-            var status = runner.query(conn, sql, new ScalarHandler<String>());
-            return status;
-        } catch (SQLException exception) {
-            return null;
-        }
+        var conn = getConn();
+        var runner = new QueryRunner();
+        var status = runner.query(conn, sql, new ScalarHandler<String>());
+        return status;
     }
+    @SneakyThrows
     public static Object getPaymentAmount() {
         var sql = "SELECT amount FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var runner = new QueryRunner();
-            var status = runner.query(conn, sql, new ScalarHandler<Integer>());
-            return status;
-        } catch (SQLException exception) {
-            return null;
-        }
+        var conn = getConn();
+        var runner = new QueryRunner();
+        var status = runner.query(conn, sql, new ScalarHandler<Integer>());
+        return status;
     }
 
+    @SneakyThrows
     public static String getCreditStatus() {
         var sql = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var runner = new QueryRunner();
-            var status = runner.query(conn, sql, new ScalarHandler<String>());
-            return status;
-        } catch (SQLException exception) {
-            return null;
-        }
+        var conn = getConn();
+        var runner = new QueryRunner();
+        var status = runner.query(conn, sql, new ScalarHandler<String>());
+        return status;
     }
+    @SneakyThrows
     public static Object getCreditAmount() {
         var sql = "SELECT amount FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var runner = new QueryRunner();
-            var status = runner.query(conn, sql, new ScalarHandler<Integer>());
-            return status;
-        } catch (SQLException exception) {
-            return null;
-        }
+        var conn = getConn();
+        var runner = new QueryRunner();
+        var status = runner.query(conn, sql, new ScalarHandler<Integer>());
+        return status;
     }
-    public static void CleanDatabase() throws SQLException {
+    @SneakyThrows
+    public static void CleanDatabase()  {
         var connection = getConn();
         var runner = new QueryRunner();
         runner.execute(connection, "DELETE FROM credit_request_entity");

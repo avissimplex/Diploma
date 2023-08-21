@@ -20,7 +20,8 @@ public class TransferTest {
 
     @BeforeEach
     void setup() throws SQLException {
-        var changePayPage = open("http://localhost:8080/", ChangePayPage.class);
+        String jarApp = System.getProperty("jarApp");
+        open(jarApp, ChangePayPage.class);
         Configuration.holdBrowserOpen = true;
         SQLHelper.CleanDatabase();
     }
