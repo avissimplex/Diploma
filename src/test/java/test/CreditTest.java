@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import page.ChangePayPage;
 import page.FormPage;
 
-import java.sql.SQLException;
-
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,20 +41,21 @@ public class CreditTest {
         assertEquals("Успешно\n" +
                         "Операция одобрена Банком.",
                 notification);
-              int amount = 4500000;
+        int amount = 4500000;
         assertEquals(amount, SQLHelper.getCreditAmount());
 
     }
+
     @Test
     @DisplayName("Should credit successfully by approved card unknown amount")
-        void shouldCreditSuccessfully() {
+    void shouldCreditSuccessfully() {
         new FormPage().fillValidCard();
         String notification = new FormPage().getNotificationAccept();
         assertEquals("APPROVED", SQLHelper.getCreditStatus());
         assertEquals("Успешно\n" +
                         "Операция одобрена Банком.",
                 notification);
-           }
+    }
 
     //Негативные тесты
     @Test
@@ -78,7 +77,7 @@ public class CreditTest {
                         "Ошибка! Банк отказал в проведении операции.",
                 notification);
         assertEquals("DECLINED", SQLHelper.getCreditStatus());
-           }
+    }
 
     @Test
     @DisplayName("Should Notificate Unfilled Form Credit")
@@ -88,7 +87,7 @@ public class CreditTest {
         assertEquals("Неверный формат",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
-            }
+    }
 
     @Test
     @DisplayName("Should Notificate Expired Year Credit")
@@ -98,7 +97,7 @@ public class CreditTest {
         assertEquals("Истёк срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
-           }
+    }
 
     @Test
     @DisplayName("Should Notificate Expired Month Credit")
@@ -108,7 +107,7 @@ public class CreditTest {
         assertEquals("Истёк срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
-            }
+    }
 
     @Test
     @DisplayName("Should Decline Credit from Invalid Owner")
@@ -128,7 +127,7 @@ public class CreditTest {
         assertEquals("Неверно указан срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
-            }
+    }
 
     @Test
     @DisplayName("Should Notificate Invalid Year Credit")
@@ -138,7 +137,7 @@ public class CreditTest {
         assertEquals("Неверно указан срок действия карты",
                 notification);
         assertEquals(null, SQLHelper.getCreditStatus());
-            }
+    }
 
     @Test
     @DisplayName("Should Show Owner Credit Grey Suggest")

@@ -1,8 +1,6 @@
 package test;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import data.DataGenerator;
 import data.SQLHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import page.ChangePayPage;
 import page.FormPage;
 
-import java.sql.SQLException;
-
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -146,13 +141,13 @@ public class TransferTest {
     @Test
     @DisplayName("Should Show Owner Payment Grey Suggest")
     void ShouldShowOwnerGreySuggest() {
-       new FormPage().getOwnerInputField();
+        new FormPage().getOwnerInputField();
     }
 
 
     @Test
     @DisplayName("Should Show CVC Payment Grey Suggest")
     void ShouldShowCvcGreySuggest() {
-       new FormPage().getCvcInputField();
+        new FormPage().getCvcInputField();
     }
 }
