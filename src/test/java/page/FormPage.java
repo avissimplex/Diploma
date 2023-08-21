@@ -81,51 +81,51 @@ public class FormPage {
 
     public FormPage fillExpiredYear() {
         return new FormPage().fillForm(
-        DataGenerator.generateValidCardNumber(),
-        DataGenerator.generateValidMonth(),
-        DataGenerator.generateExpiredYear(),
-        DataGenerator.generateValidOwner(),
-        DataGenerator.generateValidCvcCvv()
+                DataGenerator.generateValidCardNumber(),
+                DataGenerator.generateValidMonth(),
+                DataGenerator.generateExpiredYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
         );
     }
 
     public FormPage fillExpiredMonth() {
         return new FormPage().fillForm(
-        DataGenerator.generateValidCardNumber(),
-        DataGenerator.generateExpiredMonth(),
-        DataGenerator.generateValidYear(),
-        DataGenerator.generateValidOwner(),
-        DataGenerator.generateValidCvcCvv()
+                DataGenerator.generateValidCardNumber(),
+                DataGenerator.generateExpiredMonth(),
+                DataGenerator.generateValidYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
         );
     }
 
     public FormPage fillInvalidMonth() {
         return new FormPage().fillForm(
-        DataGenerator.generateValidCardNumber(),
-        DataGenerator.generateInvalidMonth(),
-        DataGenerator.generateValidYear(),
-        DataGenerator.generateValidOwner(),
-        DataGenerator.generateValidCvcCvv()
+                DataGenerator.generateValidCardNumber(),
+                DataGenerator.generateInvalidMonth(),
+                DataGenerator.generateValidYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
         );
     }
 
     public FormPage fillInvalidYear() {
         return new FormPage().fillForm(
-        DataGenerator.generateValidCardNumber(),
-        DataGenerator.generateValidMonth(),
-        DataGenerator.generateInvalidYear(),
-        DataGenerator.generateValidOwner(),
-        DataGenerator.generateValidCvcCvv()
+                DataGenerator.generateValidCardNumber(),
+                DataGenerator.generateValidMonth(),
+                DataGenerator.generateInvalidYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
         );
     }
 
     public FormPage fillInvalidOwner() {
         return new FormPage().fillForm(
-        DataGenerator.generateValidCardNumber(),
-        DataGenerator.generateValidMonth(),
-        DataGenerator.generateValidYear(),
-        DataGenerator.generateInvalidOwner(),
-        DataGenerator.generateValidCvcCvv()
+                DataGenerator.generateValidCardNumber(),
+                DataGenerator.generateValidMonth(),
+                DataGenerator.generateValidYear(),
+                DataGenerator.generateInvalidOwner(),
+                DataGenerator.generateValidCvcCvv()
         );
     }
 
