@@ -2,6 +2,7 @@ package test;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import data.DataGenerator;
 import data.SQLHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,8 +50,8 @@ public class TransferTest {
     @Test
     @DisplayName("Should payment successfully by approved card")
     void shouldPaymentSuccessfully() {
-        (new ChangePayPage()).changePaymentByCard();
-        (new FormPage()).fillValidCard();
+        new ChangePayPage().changePaymentByCard();
+        new FormPage().fillValidCard();
         String notification = (new FormPage()).getNotificationAccept();
         assertEquals("Успешно\n" +
                         "Операция одобрена Банком.",

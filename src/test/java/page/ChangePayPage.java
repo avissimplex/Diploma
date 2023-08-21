@@ -12,8 +12,7 @@ public class ChangePayPage {
     public FormPage changePaymentByCard() {
         PaymentButton.click();
         return new FormPage();
-//        return page(FormPage.class);
-    }
+          }
 
     public FormPage changeCredit() {
         creditButton.click();

@@ -28,98 +28,105 @@ public class FormPage {
     private final SelenideElement placeholdercvcCvvField = $("[placeholder='999']");
 
 
-    public FormPage fillValidCard() {
-        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
-        monthField.setValue(DataGenerator.generateValidMonth());
-        yearField.setValue(DataGenerator.generateValidYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
+    public FormPage fillForm(String cardNumber, String month, String year, String owner, String cvc) {
+        cardNumberField.setValue(cardNumber);
+        monthField.setValue(month);
+        yearField.setValue(year);
+        ownerInputField.setValue(owner);
+        placeholdercvcCvvField.setValue(cvc);
         continueButton.click();
         continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
         return new FormPage();
+    }
+
+    public FormPage fillValidCard() {
+        return new FormPage().fillForm(
+                DataGenerator.generateValidCardNumber(),
+                DataGenerator.generateValidMonth(),
+                DataGenerator.generateValidYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage fillDeclinedCard() {
-        cardNumberField.setValue(DataGenerator.generateDeclinedCardNumber());
-        monthField.setValue(DataGenerator.generateValidMonth());
-        yearField.setValue(DataGenerator.generateValidYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+                DataGenerator.generateDeclinedCardNumber(),
+                DataGenerator.generateValidMonth(),
+                DataGenerator.generateValidYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage fillUnknownCardNumber() {
-        cardNumberField.setValue(DataGenerator.generateUnknownCardNumber());
-        monthField.setValue(DataGenerator.generateValidMonth());
-        yearField.setValue(DataGenerator.generateValidYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+                DataGenerator.generateUnknownCardNumber(),
+                DataGenerator.generateValidMonth(),
+                DataGenerator.generateValidYear(),
+                DataGenerator.generateValidOwner(),
+                DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage unfillForm() {
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+                "",
+                "",
+                "",
+                "",
+                ""
+        );
     }
 
     public FormPage fillExpiredYear() {
-        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
-        monthField.setValue(DataGenerator.generateValidMonth());
-        yearField.setValue(DataGenerator.generateExpiredYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+        DataGenerator.generateValidCardNumber(),
+        DataGenerator.generateValidMonth(),
+        DataGenerator.generateExpiredYear(),
+        DataGenerator.generateValidOwner(),
+        DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage fillExpiredMonth() {
-        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
-        monthField.setValue(DataGenerator.generateExpiredMonth());
-        yearField.setValue(DataGenerator.generateValidYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+        DataGenerator.generateValidCardNumber(),
+        DataGenerator.generateExpiredMonth(),
+        DataGenerator.generateValidYear(),
+        DataGenerator.generateValidOwner(),
+        DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage fillInvalidMonth() {
-        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
-        monthField.setValue(DataGenerator.generateInvalidMonth());
-        yearField.setValue(DataGenerator.generateValidYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+        DataGenerator.generateValidCardNumber(),
+        DataGenerator.generateInvalidMonth(),
+        DataGenerator.generateValidYear(),
+        DataGenerator.generateValidOwner(),
+        DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage fillInvalidYear() {
-        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
-        monthField.setValue(DataGenerator.generateValidMonth());
-        yearField.setValue(DataGenerator.generateInvalidYear());
-        ownerInputField.setValue(DataGenerator.generateValidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+        DataGenerator.generateValidCardNumber(),
+        DataGenerator.generateValidMonth(),
+        DataGenerator.generateInvalidYear(),
+        DataGenerator.generateValidOwner(),
+        DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public FormPage fillInvalidOwner() {
-        cardNumberField.setValue(DataGenerator.generateValidCardNumber());
-        monthField.setValue(DataGenerator.generateValidMonth());
-        yearField.setValue(DataGenerator.generateValidYear());
-        ownerInputField.setValue(DataGenerator.generateInvalidOwner());
-        placeholdercvcCvvField.setValue(DataGenerator.generateValidCvcCvv());
-        continueButton.click();
-        continueButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new FormPage();
+        return new FormPage().fillForm(
+        DataGenerator.generateValidCardNumber(),
+        DataGenerator.generateValidMonth(),
+        DataGenerator.generateValidYear(),
+        DataGenerator.generateInvalidOwner(),
+        DataGenerator.generateValidCvcCvv()
+        );
     }
 
     public String getFormTitle() {
