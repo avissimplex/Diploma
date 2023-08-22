@@ -9,4 +9,5 @@
 4. Запускаем тесты:  
 а)  для MySQl `./gradlew test '-Ddb.dsn=jdbc:mysql://localhost:3306/app'`   
 б) для PostgresQL `./gradlew test '-Ddb.dsn=jdbc:postgresql://localhost:5433/app'`  
+5. Для получения Gradle отчёта открываем папку build/reports/tests/test и открываем файл index.html в браузере.
 
