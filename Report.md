@@ -1,3 +1,5 @@
+![allure](https://github.com/avissimplex/Diploma/assets/121847101/c95b0f69-b6d0-4bbd-b0a4-9651662688b1)
+![suites allure](https://github.com/avissimplex/Diploma/assets/121847101/18b76cdf-4033-47ab-8bc6-645aabc6ee0a)
 # Отчёт о проведенном тестировании  
 ## краткое описание  
 Протестирован веб-сервис, который предлагает купить тур по определённой цене двумя способами 1) Обычная
