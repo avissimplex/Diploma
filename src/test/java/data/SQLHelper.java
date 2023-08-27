@@ -6,7 +6,6 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class SQLHelper {
     private SQLHelper() {
@@ -30,7 +29,7 @@ public class SQLHelper {
         return status;
     }
     @SneakyThrows
-    public static Object getPaymentAmount() {
+    public static Integer getPaymentAmount() {
         var sql = "SELECT amount FROM payment_entity ORDER BY created DESC LIMIT 1";
         var conn = getConn();
         var runner = new QueryRunner();
@@ -47,7 +46,7 @@ public class SQLHelper {
         return status;
     }
     @SneakyThrows
-    public static Object getCreditAmount() {
+    public static Integer getCreditAmount() {
         var sql = "SELECT amount FROM credit_request_entity ORDER BY created DESC LIMIT 1";
         var conn = getConn();
         var runner = new QueryRunner();
@@ -55,7 +54,7 @@ public class SQLHelper {
         return status;
     }
     @SneakyThrows
-    public static void CleanDatabase()  {
+    public static void cleanDatabase()  {
         var connection = getConn();
         var runner = new QueryRunner();
         runner.execute(connection, "DELETE FROM credit_request_entity");

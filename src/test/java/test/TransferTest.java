@@ -10,6 +10,7 @@ import page.FormPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TransferTest {
 
@@ -18,7 +19,7 @@ public class TransferTest {
         String jarApp = System.getProperty("jarApp");
         open(jarApp, ChangePayPage.class);
         Configuration.holdBrowserOpen = true;
-        SQLHelper.CleanDatabase();
+        SQLHelper.cleanDatabase();
         new ChangePayPage().changePaymentByCard();
     }
 
@@ -72,40 +73,41 @@ public class TransferTest {
 
     @Test
     @DisplayName("Should Notificate Unfilled Payment Form ")
-    void ShouldNotificateUnfilledPaymentForm() {
+    void shouldNotificateUnfilledPaymentForm() {
         new FormPage().unfillForm();
         String notification = new FormPage().getRedNotificationAccept();
         assertEquals("Неверный формат",
                 notification);
-        assertEquals(null, SQLHelper.getPaymentStatus());
-        assertEquals(null, SQLHelper.getPaymentAmount());
+        assertNull(SQLHelper.getPaymentAmount(), "Payment amount should be null");
+        assertNull(SQLHelper.getPaymentStatus(), "Payment status should be null");
+
     }
 
     @Test
     @DisplayName("Should Notificate Expired Year Payment")
-    void ShouldNotificateExpiredYearPayment() {
+    void shouldNotificateExpiredYearPayment() {
         new FormPage().fillExpiredYear();
         String notification = new FormPage().getDateExpiredNotification();
         assertEquals("Истёк срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getPaymentStatus());
-        assertEquals(null, SQLHelper.getPaymentAmount());
+        assertNull(SQLHelper.getPaymentAmount(), "Payment amount should be null");
+        assertNull(SQLHelper.getPaymentStatus(), "Payment status should be null");
     }
 
     @Test
     @DisplayName("Should Notificate Expired Month Payment")
-    void ShouldNotificateExpiredMonthPayment() {
+    void shouldNotificateExpiredMonthPayment() {
         new FormPage().fillExpiredMonth();
         String notification = new FormPage().getMonthExpiredNotificationAccept();
         assertEquals("Истёк срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getPaymentStatus());
-        assertEquals(null, SQLHelper.getPaymentAmount());
+        assertNull(SQLHelper.getPaymentAmount(), "Payment amount should be null");
+        assertNull(SQLHelper.getPaymentStatus(), "Payment status should be null");
     }
 
     @Test
     @DisplayName("Should Decline Payment from Invalid Owner")
-    void ShouldDeclinePaymentInvalidOwner() {
+    void shouldDeclinePaymentInvalidOwner() {
         new FormPage().fillInvalidOwner();
         assertEquals(null, SQLHelper.getPaymentStatus());
         assertEquals(null, SQLHelper.getPaymentAmount());
@@ -116,38 +118,38 @@ public class TransferTest {
 
     @Test
     @DisplayName("Should Notificate Invalid Month Payment")
-    void ShouldNotificateInvalidMonthPayment() {
+    void shouldNotificateInvalidMonthPayment() {
         new FormPage().fillInvalidMonth();
         String notification = new FormPage().getDateInvalidNotification();
         assertEquals("Неверно указан срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getPaymentStatus());
-        assertEquals(null, SQLHelper.getPaymentAmount());
+        assertNull(SQLHelper.getPaymentAmount(), "Payment amount should be null");
+        assertNull(SQLHelper.getPaymentStatus(), "Payment status should be null");
     }
 
 
     @Test
     @DisplayName("Should Notificate Invalid Year Payment")
-    void ShouldNotificateInvalidYearPayment() {
+    void shouldNotificateInvalidYearPayment() {
         new FormPage().fillInvalidYear();
         String notification = (new FormPage()).getDateInvalidNotification();
         assertEquals("Неверно указан срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getPaymentStatus());
-        assertEquals(null, SQLHelper.getPaymentAmount());
+        assertNull(SQLHelper.getPaymentAmount(), "Payment amount should be null");
+        assertNull(SQLHelper.getPaymentStatus(), "Payment status should be null");
     }
 
 
     @Test
     @DisplayName("Should Show Owner Payment Grey Suggest")
-    void ShouldShowOwnerGreySuggest() {
+    void shouldShowOwnerGreySuggest() {
         new FormPage().getOwnerInputField();
     }
 
 
     @Test
     @DisplayName("Should Show CVC Payment Grey Suggest")
-    void ShouldShowCvcGreySuggest() {
+    void shouldShowCvcGreySuggest() {
         new FormPage().getCvcInputField();
     }
 }

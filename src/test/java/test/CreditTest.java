@@ -11,6 +11,7 @@ import page.FormPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CreditTest {
     @BeforeEach
@@ -18,7 +19,7 @@ public class CreditTest {
         String jarApp = System.getProperty("jarApp");
         open(jarApp, ChangePayPage.class);
         Configuration.holdBrowserOpen = true;
-        SQLHelper.CleanDatabase();
+        SQLHelper.cleanDatabase();
         new ChangePayPage().changeCredit();
     }
 
@@ -81,37 +82,37 @@ public class CreditTest {
 
     @Test
     @DisplayName("Should Notificate Unfilled Form Credit")
-    void ShouldNotificateUnfilledFormCredit() {
+    void shouldNotificateUnfilledFormCredit() {
         new FormPage().unfillForm();
         String notification = new FormPage().getRedNotificationAccept();
         assertEquals("Неверный формат",
                 notification);
-        assertEquals(null, SQLHelper.getCreditStatus());
+        assertNull(SQLHelper.getCreditStatus(), "Credit status should be null");
     }
 
     @Test
     @DisplayName("Should Notificate Expired Year Credit")
-    void ShouldNotificateExpiredYearCredit() {
+    void shouldNotificateExpiredYearCredit() {
         new FormPage().fillExpiredYear();
         String notification = new FormPage().getDateExpiredNotification();
         assertEquals("Истёк срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getCreditStatus());
+        assertNull(SQLHelper.getCreditStatus(), "Credit status should be null");
     }
 
     @Test
     @DisplayName("Should Notificate Expired Month Credit")
-    void ShouldNotificateExpiredMonthCredit() {
+    void shouldNotificateExpiredMonthCredit() {
         new FormPage().fillExpiredMonth();
         String notification = new FormPage().getMonthExpiredNotificationAccept();
         assertEquals("Истёк срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getCreditStatus());
+        assertNull(SQLHelper.getCreditStatus(), "Credit status should be null");
     }
 
     @Test
     @DisplayName("Should Decline Credit from Invalid Owner")
-    void ShouldDeclineCreditInvalidOwner() {
+    void shouldDeclineCreditInvalidOwner() {
         new FormPage().fillInvalidOwner();
         assertEquals(null, SQLHelper.getCreditStatus());
         String notification = new FormPage().getNotificationOwnerInvalid();
@@ -121,33 +122,33 @@ public class CreditTest {
 
     @Test
     @DisplayName("Should Notificate Invalid Month Credit")
-    void ShouldNotificateInvalidMonthCredit() {
+    void shouldNotificateInvalidMonthCredit() {
         new FormPage().fillInvalidMonth();
         String notification = new FormPage().getDateInvalidNotification();
         assertEquals("Неверно указан срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getCreditStatus());
+        assertNull(SQLHelper.getCreditStatus(), "Credit status should be null");
     }
 
     @Test
     @DisplayName("Should Notificate Invalid Year Credit")
-    void ShouldNotificateInvalidYearCredit() {
+    void shouldNotificateInvalidYearCredit() {
         new FormPage().fillInvalidYear();
         String notification = new FormPage().getDateInvalidNotification();
         assertEquals("Неверно указан срок действия карты",
                 notification);
-        assertEquals(null, SQLHelper.getCreditStatus());
+        assertNull(SQLHelper.getCreditStatus(), "Credit status should be null");
     }
 
     @Test
     @DisplayName("Should Show Owner Credit Grey Suggest")
-    void ShouldShowOwnerGreySuggest() {
+    void shouldShowOwnerGreySuggest() {
         new FormPage().getOwnerInputField();
     }
 
     @Test
     @DisplayName("Should Show CVC Credit Grey Suggest")
-    void ShouldShowCvcGreySuggest() {
+    void shouldShowCvcGreySuggest() {
         new FormPage().getCvcInputField();
     }
 }
